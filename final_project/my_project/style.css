@@ -18,17 +18,19 @@ ul {
 li {
     background-color: #fff;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    font-size: 1em;
 }
 
 form {
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     margin-top: 20px;
+    max-width: 400px;
 }
 
 label {
@@ -37,19 +39,22 @@ label {
     font-weight: bold;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="datetime-local"],
+input[type="number"] {
     width: calc(100% - 22px);
-    /* padding と border を考慮 */
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
 button {
     background-color: #0056b3;
     color: white;
-    padding: 10px 15px;
+    padding: 10px 18px;
     border: none;
     border-radius: 4px;
     cursor: pointer;

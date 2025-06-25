@@ -1,43 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const dataList = document.getElementById('data-list');
-    const addDataForm = document.getElementById('add-data-form');
-    const value1Input = document.getElementById('value1');
-    const value2Input = document.getElementById('value2');
+    const quakeList = document.getElementById('quake-list');
+    const addQuakeForm = document.getElementById('add-quake-form');
+    const dateInput = document.getElementById('date');
+    const locationInput = document.getElementById('location');
+    const magnitudeInput = document.getElementById('magnitude');
+    const depthInput = document.getElementById('depth');
 
-    // データ一覧を取得して表示する関数
-    async function fetchData() {
+    // 地震データ一覧を取得して表示する関数
+    async function fetchQuakes() {
         try {
-            const response = await fetch('/data');
+            const response = await fetch('/quakes');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.json();
-            dataList.innerHTML = ''; // 既存のリストをクリア
-            data.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `ID: ${item.id}, 値1: ${item.value_1}, 値2: ${item.value_2 || 'N/A'}`;
-                dataList.appendChild(listItem);
-            });
+            const quakes = await response.json();
+            quakeList.innerHTML = '';
+            if (quakes.length === 0) {
+                quakeList.innerHTML = '<li>記録された地震はありません。</li>';
+            } else {
+                quakes.forEach(q => {
+                    const li = document.createElement('li');
+                    li.textContent = `日時: ${q.date}, 場所: ${q.location}, マグニチュード: ${q.magnitude}, 深さ: ${q.depth ? q.depth + 'km' : '不明'}`;
+                    quakeList.appendChild(li);
+                });
+            }
         } catch (error) {
-            console.error('データの取得に失敗しました:', error);
-            dataList.innerHTML = '<li>データの取得に失敗しました。</li>';
+            console.error('地震データの取得に失敗しました:', error);
+            quakeList.innerHTML = '<li>地震データの取得に失敗しました。</li>';
         }
     }
 
-    // データ追加フォームの送信イベントリスナー
-    addDataForm.addEventListener('submit', async (event) => {
-        event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+    // 地震データ追加フォームの送信イベント
+    addQuakeForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-        const value1 = value1Input.value;
-        const value2 = value2Input.value;
+        const quakeData = {
+            date: dateInput.value,
+            location: locationInput.value,
+            magnitude: magnitudeInput.value,
+            depth: depthInput.value
+        };
 
         try {
-            const response = await fetch('/data', {
+            const response = await fetch('/quakes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ value_1: value1, value_2: value2 }),
+                body: JSON.stringify(quakeData),
             });
 
             if (!response.ok) {
@@ -45,18 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // フォームをクリア
-            value1Input.value = '';
-            value2Input.value = '';
+            dateInput.value = '';
+            locationInput.value = '';
+            magnitudeInput.value = '';
+            depthInput.value = '';
 
-            // データ一覧を再読み込み
-            await fetchData();
+            // 一覧を再取得
+            await fetchQuakes();
 
         } catch (error) {
-            console.error('データの追加に失敗しました:', error);
-            alert('データの追加に失敗しました。');
+            console.error('地震データの追加に失敗しました:', error);
+            alert('地震データの追加に失敗しました。');
         }
     });
 
     // 初期データの読み込み
-    fetchData();
+    fetchQuakes();
 });
