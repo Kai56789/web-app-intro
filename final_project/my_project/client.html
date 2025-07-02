@@ -4,33 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地震観測アプリ</title>
+    <title>地震観測記録サイト</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <h1>地震観測アプリ</h1>
+    <header>
+        <h1>🌏 地震観測記録サイト</h1>
+        <p>地震を記録し、どのような場所で起こっているかを調べる</p>
+    </header>
+    <main>
+        <section>
+            <h2>観測された地震一覧</h2>
+            <ul id="quake-list">
+                <!-- 地震データがここに表示されます -->
+            </ul>
+            <h3>地震のメカニズム</h3>
+            <img src="https://storage.tenki.jp/storage/static-images/feature/image/5/53/538/538/large.jpg" alt="地震のメカニズム" class="shake-image" width="700">
+        </section>
 
-    <h2>観測された地震一覧</h2>
-    <ul id="quake-list">
-        <!-- 地震データがここに表示されます -->
-    </ul>
-
-    <h2>新しい地震を記録</h2>
-    <form id="add-quake-form">
-        <label for="date">発生日時:</label>
-        <input type="datetime-local" id="date" name="date" required><br>
-        <label for="location">場所:</label>
-        <input type="text" id="location" name="location" required><br>
-        <label for="magnitude">マグニチュード:</label>
-        <input type="number" id="magnitude" name="magnitude" step="0.1" min="0" required><br>
-        <label for="depth">深さ (km):</label>
-        <input type="number" id="depth" name="depth" step="1" min="0"><br>
-        <button type="submit">記録</button>
-    </form>
-
+        <section>
+            <h2>新しい地震を記録</h2>
+            <form id="add-quake-form" autocomplete="off">
+                <label for="date">発生日時:</label>
+                <input type="text" id="date" name="date" required><br>
+                <label for="location">場所:</label>
+                <input type="text" id="location" name="location" required><br>
+                <label for="magnitude">マグニチュード:</label>
+                <input type="number" id="magnitude" name="magnitude" step="0.1" min="0" required><br>
+                <label for="depth">深さ (km):</label>
+                <input type="number" id="depth" name="depth" step="1" min="0"><br>
+                <label for="intensity">最大震度:</label>
+                <input type="text" id="intensity" name="intensity"><br>
+                <button type="submit">記録</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <small>&copy; 2025 地震観測アプリ</small>
+    </footer>
     <script src="script.js"></script>
 </body>
-
 </html>

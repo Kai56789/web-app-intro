@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, HTTPException
 from fastapi.responses import HTMLResponse, PlainTextResponse
 from pydantic import BaseModel
 from typing import List, Optional
@@ -19,6 +19,7 @@ class Quake(BaseModel):
     location: str
     magnitude: float
     depth: Optional[int] = None
+    intensity: Optional[str] = None  # 文字列型に変更
 
 
 def get_db_connection():
@@ -37,7 +38,8 @@ def initialize_db():
             date TEXT NOT NULL,
             location TEXT NOT NULL,
             magnitude REAL NOT NULL,
-            depth INTEGER
+            depth INTEGER,
+            intensity TEXT
         )
         """
     )
@@ -58,8 +60,8 @@ def create_quake(item: Quake):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO quakes (date, location, magnitude, depth) VALUES (?, ?, ?, ?)",
-        (item.date, item.location, item.magnitude, item.depth),
+        "INSERT INTO quakes (date, location, magnitude, depth, intensity) VALUES (?, ?, ?, ?, ?)",
+        (item.date, item.location, item.magnitude, item.depth, item.intensity),
     )
     conn.commit()
     item_id = cursor.lastrowid
@@ -70,7 +72,21 @@ def create_quake(item: Quake):
         location=item.location,
         magnitude=item.magnitude,
         depth=item.depth,
+        intensity=item.intensity,
     )
+
+
+@app.delete("/quakes/{quake_id}", status_code=204)
+def delete_quake(quake_id: int):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM quakes WHERE id = ?", (quake_id,))
+    conn.commit()
+    deleted = cursor.rowcount
+    conn.close()
+    if deleted == 0:
+        raise HTTPException(status_code=404, detail="Not found")
+    return Response(status_code=204)
 
 
 # ここから下は書き換えない
