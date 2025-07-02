@@ -19,7 +19,7 @@ class Quake(BaseModel):
     location: str
     magnitude: float
     depth: Optional[int] = None
-    intensity: Optional[str] = None  # 文字列型に変更
+    intensity: Optional[str] = None
 
 
 def get_db_connection():
