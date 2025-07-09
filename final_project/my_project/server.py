@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Response, HTTPException
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, FileResponse
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -87,6 +87,21 @@ def delete_quake(quake_id: int):
     if deleted == 0:
         raise HTTPException(status_code=404, detail="Not found")
     return Response(status_code=204)
+
+
+@app.get("/image.jpg")
+def get_image_jpg():
+    image_path = os.path.join(BASE_DIR, "image.jpg")
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(image_path, media_type="image/jpeg")
+
+@app.get("/image2.jpg")
+def get_image2_jpg():
+    image_path = os.path.join(BASE_DIR, "image2.jpg")
+    if not os.path.exists(image_path):
+        raise HTTPException(status_code=404, detail="Not found")
+    return FileResponse(image_path, media_type="image/jpeg")
 
 
 # ここから下は書き換えない

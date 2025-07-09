@@ -1,3 +1,4 @@
+/* 基本のスタイル */
 body {
     font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
     margin: 0;
@@ -9,89 +10,165 @@ body {
 
 header {
     margin-bottom: 30px;
-    padding: 32px 0 16px 0;
-    background: linear-gradient(90deg, #0056b3 0%, #4fc3f7 100%);
+    padding: 40px 0;
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* 鮮やかなグラデーション */
     color: #fff;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* 影を追加 */
+    border-radius: 24px 24px 0 0; /* 上部の角を丸く */
 }
 
 h1 {
-    font-size: 2.4em;
-    margin-bottom: 8px;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 8px #1976d2aa;
+    font-size: 3.2em;
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0, 114, 255, 0.6); /* テキストに影を付けて立体感を */
+    animation: titleAnimation 2s ease-in-out infinite; /* アニメーション追加 */
 }
 
+@keyframes titleAnimation {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(10px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+    }
+}
+
+header p {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* 観測された地震一覧セクション */
 h2 {
     color: #0056b3;
     margin-top: 0;
-    margin-bottom: 18px;
-    font-size: 1.3em;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+    padding: 10px 20px;
+    background-color: #4fc3f7;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+    font-weight: bold;
+}
+
+/* 新しい地震を記録セクション */
+section h2:nth-of-type(2) {
+    color: #fff;
+    background: linear-gradient(135deg, #039be5, #0288d1);
+    padding: 16px 24px;
+    font-size: 1.6em;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.2);
+}
+
+/* 新しい地震を記録フォーム */
+form {
+    background: #f8fbff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+    margin-top: 20px;
+    max-width: 500px;
+    margin: 20px auto;
     border-left: 6px solid #4fc3f7;
-    padding-left: 10px;
-    background: #f0f8ff;
-    border-radius: 3px;
-    box-shadow: 0 1px 4px #b3c6e033;
 }
 
-h3 {
-    color: #1976d2;
-    margin-top: 24px;
-    margin-bottom: 10px;
+/* フォームラベル */
+form label {
     font-size: 1.1em;
-    letter-spacing: 1px;
+    color: #1976d2;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
+/* フォーム入力フィールド */
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1.5px solid #b3c6e0;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #f1f7ff;
+    transition: 0.2s;
+}
+
+/* フォーム入力のフォーカス時 */
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+    border: 2px solid #4fc3f7;
+    outline: none;
+    background: #e3f2fd;
+}
+
+/* 記録ボタン */
+button {
+    background: linear-gradient(90deg, #0056b3 0%, #4fc3f7 100%);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+/* ボタンホバー */
+button:hover {
+    background: linear-gradient(90deg, #039be5 0%, #0288d1 100%);
+    transform: scale(1.05);
+}
+
+/* メイン部分 */
 main {
-    max-width: 700px;
-    margin: 30px auto 0 auto;
+    max-width: 900px;
+    margin: 0 auto;
     padding: 0 16px;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
-
+/* 地震リストのアイテム */
 li {
     background: #fff;
-    margin-bottom: 12px;
-    padding: 16px 18px;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0, 86, 179, 0.10);
-    font-size: 1.05em;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 86, 179, 0.1);
+    margin-bottom: 16px;
+    font-size: 1.1em;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    transition: box-shadow 0.2s, background 0.2s;
-    position: relative;
-    overflow: hidden;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 li:hover {
-    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.18);
     background: #f5faff;
+    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.18);
 }
 
-li input[type="checkbox"] {
-    accent-color: #4fc3f7;
-    transform: scale(1.2);
-    margin-right: 12px;
-}
-
+/* 地震リストの削除ボタン */
 li .delete-btn {
     background: #e74c3c;
-    color: #fff;
-    margin-left: auto;
-    padding: 7px 14px;
-    border-radius: 4px;
-    border: none;
-    font-size: 0.95em;
-    transition: background 0.2s, transform 0.2s;
-    box-shadow: 0 1px 4px #e74c3c22;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
 }
 
 li .delete-btn:hover {
@@ -99,76 +176,36 @@ li .delete-btn:hover {
     transform: scale(1.08);
 }
 
-li span {
-    display: inline-block;
-    margin-right: 8px;
-}
-
-li strong {
+/* 地震のメカニズムの見出し */
+h3 {
     color: #1976d2;
-}
-
-form {
-    background: #fff;
-    padding: 28px;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0, 86, 179, 0.10);
-    margin-top: 28px;
-    max-width: 440px;
-    margin-left: auto;
-    margin-right: auto;
-    border-left: 5px solid #4fc3f7;
-}
-
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: #0056b3;
-    letter-spacing: 0.5px;
-}
-
-input[type="text"],
-input[type="number"] {
-    width: 100%;
-    padding: 11px;
-    margin-bottom: 18px;
-    border: 1.5px solid #b3c6e0;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
-    background: #f8fbff;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-    border: 2px solid #4fc3f7;
-    outline: none;
-    background: #e3f2fd;
-    box-shadow: 0 0 6px #4fc3f755;
-}
-
-button {
-    background: linear-gradient(90deg, #0056b3 0%, #4fc3f7 100%);
-    color: white;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.05em;
-    font-weight: bold;
+    font-size: 1.5em;
+    margin: 24px 0;
+    text-align: center;
     letter-spacing: 1px;
-    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-    box-shadow: 0 2px 8px rgba(0,86,179,0.10);
+    font-weight: bold;
 }
 
-button:hover {
-    background: linear-gradient(90deg, #004494 0%, #039be5 100%);
-    box-shadow: 0 4px 16px rgba(0,86,179,0.18);
-    transform: translateY(-2px) scale(1.04);
+/* 画像を横に並べる */
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
+.image-row img {
+    max-width: 60%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.1);
+    transition: transform 0.3s;
+}
+
+.image-row img:hover {
+    transform: scale(1.05);
+}
+
+/* フッター */
 footer {
     margin-top: 40px;
     text-align: center;
@@ -180,18 +217,4 @@ footer {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     box-shadow: 0 -2px 8px #b3c6e022;
-}
-
-.zoom-image {
-    display: block;
-    margin: 24px auto;
-    animation: zoomInOut 2.5s infinite ease-in-out;
-}
-
-@keyframes zoomInOut {
-    0%   { transform: scale(1); }
-    20%  { transform: scale(1.08); }
-    50%  { transform: scale(0.92); }
-    80%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
 }
