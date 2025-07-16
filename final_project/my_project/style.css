@@ -153,10 +153,13 @@ li:hover {
 li .delete-btn {
     background: #e74c3c;
     color: white;
-    padding: 10px 16px;
+    padding: 4px 10px; /* 幅を小さく */
     border-radius: 6px;
     cursor: pointer;
+    font-size: 0.90em;
     transition: transform 0.2s, background 0.2s;
+    min-width: unset;
+    width: auto;
 }
 
 li .delete-btn:hover {
